@@ -20,7 +20,7 @@ const DashboradLayout = () => {
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
       <aside
-        className={`w-64 bg-white shadow-md p-5 h-screen flex flex-col fixed lg:relative transition-transform duration-300 ${
+        className={`w-64 bg-white shadow-md z-30 p-5 h-screen flex flex-col fixed lg:relative transition-transform duration-300 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-64 lg:translate-x-0"
         }`}
       >
@@ -36,11 +36,11 @@ const DashboradLayout = () => {
           </button>
         </div>
 
-        <nav className="flex-1">
+        <nav className="flex-1 ">
           <ul>
             <li className="mb-3">
               <Link
-                to="/dashboard"
+                to="/"
                 className="flex items-center space-x-3 text-gray-700 hover:bg-gray-200 p-3 rounded"
                 onClick={() => setIsSidebarOpen(false)}
               >
@@ -51,7 +51,7 @@ const DashboradLayout = () => {
             </li>
             <li className="mb-3">
               <Link
-                to="/dashboard/profile"
+                to="/profile"
                 className="flex items-center space-x-3 text-gray-700 hover:bg-gray-200 p-3 rounded"
                 onClick={() => setIsSidebarOpen(false)}
               >
@@ -61,7 +61,7 @@ const DashboradLayout = () => {
             </li>
             <li className="mb-3">
               <Link
-                to="/dashboard/notes"
+                to="/notes"
                 className="flex items-center space-x-3 text-gray-700 hover:bg-gray-200 p-3 rounded"
                 onClick={() => setIsSidebarOpen(false)}
               >
@@ -73,7 +73,7 @@ const DashboradLayout = () => {
         </nav>
         <div>
           <Link
-            to="/dashboard/settings"
+            to="/settings"
             className="flex items-center space-x-3 text-gray-700 hover:bg-gray-200 p-3 rounded"
             onClick={() => setIsSidebarOpen(false)}
           >
@@ -86,7 +86,7 @@ const DashboradLayout = () => {
       {/* Main Content */}
       <div className="flex flex-col flex-1">
         {/* Topbar */}
-        <header className="bg-white shadow px-6 py-3 flex justify-between items-center">
+        <header className="bg-white shadow px-6 py-3 flex justify-between items-center z-10">
           {/* Mobile Sidebar Toggle */}
           <button
             className="lg:hidden text-gray-700 cursor-pointer"

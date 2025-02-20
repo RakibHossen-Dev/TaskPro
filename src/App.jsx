@@ -10,10 +10,10 @@ import PrivateRoute from "./routers/PrivateRoute";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Register></Register>}></Route>
+      <Route path="/register" element={<Register></Register>}></Route>
       <Route path="/login" element={<Login></Login>}></Route>
       <Route
-        path="/dashboard"
+        path="/"
         element={
           <PrivateRoute>
             <DashboradLayout />

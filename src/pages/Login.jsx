@@ -35,7 +35,7 @@ const Login = () => {
       };
       axiosPublic.post("/users", userInfo).then((res) => {
         console.log(res);
-        navigate("/dashboard");
+        navigate("/");
       });
     });
   };
@@ -123,12 +123,10 @@ const Login = () => {
               At least one uppercase letter
             </p>
 
-            <button className="btn btn-neutral mb-2 mt-4 w-full">
-              Register
-            </button>
+            <button className="btn btn-neutral mb-2 mt-4 w-full">Login</button>
             <p className="text-center">
               Dont't have an account
-              <Link to="/" className="text-sm text-blue-500 ml-1">
+              <Link to="/register" className="text-sm text-blue-500 ml-1">
                 Register
               </Link>
             </p>
