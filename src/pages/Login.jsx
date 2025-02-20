@@ -4,11 +4,12 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router";
 import { AuthContext } from "./providers/AuthProvider";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const { signIn, googleSignIn, logOut } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -20,6 +21,7 @@ const Login = () => {
     signIn(data.email, data.password)
       .then((result) => {
         console.log(result);
+        navigate("/dashboard");
       })
       .catch((err) => console.log(err));
   };
@@ -33,15 +35,13 @@ const Login = () => {
       };
       axiosPublic.post("/users", userInfo).then((res) => {
         console.log(res);
+        navigate("/dashboard");
       });
     });
   };
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">
-      <button onClick={logOut} className="btn btn-neutral mb-2 mt-4 ">
-        Logout
-      </button>
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
         <div className="card-body">
           <h3 className="text-center text-xl font-semibold">Login</h3>
