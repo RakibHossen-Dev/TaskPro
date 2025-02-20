@@ -1,18 +1,59 @@
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router";
+import { AuthContext } from "./providers/AuthProvider";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Login = () => {
+  const { signIn, googleSignIn, logOut } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    signIn(data.email, data.password)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleGoogleRegister = () => {
+    googleSignIn().then((result) => {
+      const userInfo = {
+        name: result.user?.displayName,
+        email: result.user?.email,
+        photo: result.user?.photoURL,
+      };
+      axiosPublic.post("/users", userInfo).then((res) => {
+        console.log(res);
+      });
+    });
+  };
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">
+      <button onClick={logOut} className="btn btn-neutral mb-2 mt-4 ">
+        Logout
+      </button>
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
         <div className="card-body">
           <h3 className="text-center text-xl font-semibold">Login</h3>
-          <button className="btn btn-neutral mt-4 flex gap-2 justify-center items-center">
+          <button
+            onClick={handleGoogleRegister}
+            className="btn btn-neutral mt-4 flex gap-2 justify-center items-center"
+          >
             <FcGoogle className="text-lg" />
             Login With Google
           </button>
           <div className="divider">or</div>
-          <form className="space-y-2">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
             <label className="input validator">
               <svg
                 className="h-[1em] opacity-50"
@@ -30,7 +71,12 @@ const Login = () => {
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                 </g>
               </svg>
-              <input type="email" placeholder="mail@site.com" required />
+              <input
+                type="email"
+                {...register("email", { required: true })}
+                placeholder="mail@site.com"
+                required
+              />
             </label>
             <div className="validator-hint hidden">
               Enter valid email address
@@ -61,6 +107,7 @@ const Login = () => {
                 type="password"
                 required
                 placeholder="Password"
+                {...register("password", { required: true })}
                 minLength="8"
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                 title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
