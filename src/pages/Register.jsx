@@ -5,12 +5,14 @@ import { AuthContext } from "./providers/AuthProvider";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { useNavigate } from "react-router";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const Register = () => {
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
 
   const { user, googleSignIn, createUser, updateUserProfile } =
     useContext(AuthContext);
@@ -28,6 +30,7 @@ const Register = () => {
       };
       axiosPublic.post("/users", userInfo).then((res) => {
         console.log(res);
+        navigate("/");
       });
     });
   };
@@ -51,6 +54,7 @@ const Register = () => {
           };
           axiosPublic.post("/users", userInfo).then((res) => {
             console.log(res);
+            navigate("/");
           });
         });
       })

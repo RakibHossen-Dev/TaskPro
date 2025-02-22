@@ -6,12 +6,14 @@ import DashboradLayout from "./layouts/DashboradLayout";
 import Home from "./pages/dashboard/Home";
 import Profile from "./pages/dashboard/Profile";
 import PrivateRoute from "./routers/PrivateRoute";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
     <Routes>
       <Route path="/register" element={<Register></Register>}></Route>
       <Route path="/login" element={<Login></Login>}></Route>
+      <Route path="*" element={<NotFound></NotFound>}></Route>
       <Route
         path="/"
         element={

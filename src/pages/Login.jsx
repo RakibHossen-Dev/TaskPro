@@ -21,7 +21,7 @@ const Login = () => {
     signIn(data.email, data.password)
       .then((result) => {
         console.log(result);
-        navigate("/dashboard");
+        navigate("/");
       })
       .catch((err) => console.log(err));
   };
